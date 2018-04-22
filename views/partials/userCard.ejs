@@ -1,0 +1,37 @@
+<% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined')) { %>
+<div class="ui card">
+    <div class="content" style="padding: 0.5em;">
+        <% if((typeof(session.user.name) !== 'undefined') && (typeof(session.user.avatarUrl) !== 'undefined')) { %>
+            <a href="/user/<%= session.user.name %>">
+                <img class="right floated tiny ui image" style="margin: 0;width: 50px;height: 50px;" src="<%= session.user.avatarUrl %>" id="userCardAvatar">
+                <div class="header" style="font-weight: 700;font-size: 1.28571429em;color: rgba(0,0,0,.87);">
+                    <%= session.user.name %>
+                </div>
+            </a>
+        <% } %>
+
+        <% if(typeof session.user.integration !== 'undefined') { %>
+            <div class="meta">
+            积分: <%= session.user.integration %>
+            </div>
+        <% } %>
+
+        <% if(typeof(session.user.signature) !== 'undefined') { %>
+            <div class="description">
+            "<%= session.user.signature %>"
+            </div>
+        <% } %>
+
+    </div>
+
+    <div class="ui basic vertical buttons">
+        <% if(typeof(session.user.personalWeb) !== 'undefined') { %>
+        <a class="ui button" href="<%= session.user.personalWeb %>">个人网站</a>
+        <% } %>
+        <% if(typeof(session.user.GitHub) !== 'undefined') { %>
+        <a class="ui  button" href="<%= session.user.GitHub %>">GitHUb主页</a>
+        <% } %>
+        <a class="ui  button" href="/userSetting/<%= session.user.name %>"><i class="icon settings"></i> 设置</a>
+    </div>
+</div>
+<% } %>

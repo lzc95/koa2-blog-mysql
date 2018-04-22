@@ -1,0 +1,40 @@
+<div class="ui card">
+    <div class="content">
+        <div class="header">你的话题</div>
+        <div class="ui divider"></div>
+        <div class="ui link list" id="user_card_list">
+            <% if (typeof userTopics !== 'undefined' && userTopics.length !== 0){ %>
+            <% for (var topic of userTopics){ %>
+            <a class='item' href="/topic/<%= topic.id %>"><%= topic.title %></a>
+            <% }} else { %>
+            <p>您还没有任何话题</p>
+            <% } %>
+        </div>
+    </div>
+    <a class="ui vertical animated basic green button" href="/topic/create">
+        <div class="hidden content">发表话题</div>
+        <div class="visible content">
+            <i class="plus icon"></i>
+        </div>
+    </a>
+
+    <script type="text/javascript">
+        $('#enter').click(function () {
+            console.log("提交post");
+            $.ajax({
+                url: "/api/test/",
+                data: $('#sentToServer').serialize(),
+                type: "POST",
+                cache: false,
+                dataType: 'text',
+                success: function (msg) {
+                    alert(msg);
+                },
+                error: function () {
+                    alert('异常');
+                }
+            })
+        });
+    </script>
+
+</div>

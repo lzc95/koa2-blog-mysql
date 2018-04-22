@@ -1,0 +1,38 @@
+<div class="ui divided selected items">
+    <% if(typeof topics !== "undefined" && topics.length !== 0) { %>
+    <% for( var topic of topics) { %>
+    <div class="item">
+        <% if( typeof topic.user !== 'undefined' && typeof topic.user.avatarUrl !== 'undefined'){ %>
+        <a href="/user/<%= topic.user.name %>" class="ui image" style="width: 50px;">
+            <img src="<%= topic.user.avatarUrl %>">
+        </a>
+        <% } %>
+        <div class="top aligned content">
+            <a class="header" href="/topic/<%= topic.id %>"><%= topic.title %></a>
+            <div class="meta">
+                    <span class="cinema">
+                        <a class="header" href="/user/<%= topic.id %>"><%= topic.name %></a>
+                        发布于<%= topic.fromNow %>●
+                        回复<%= topic.reply_count %>●
+                        浏览<%= topic.pv %>
+                    </span>
+            </div>
+        </div>
+        <div class="middle right floated">
+            <div class="ui horizontal list">
+                <div class="item">
+                    <a class="item" href="/user/<%= topic.lastCommentUser.name %>" class="ui image">
+                        <% if( typeof topic.lastCommentUser !== 'undefined' && typeof topic.lastCommentUser.avatarUrl !== 'undefined' ){ %>
+                        <img class="ui avatar image" style="width: 3em;height: 3em;" src="<%= topic.lastCommentUser.avatarUrl %>">
+                        <% } %>
+                    </a>
+                </div>
+                <div class=" item" style="width: 60px; margin: 0px;padding: 0px">
+                    <div class="content" style="font-size: smaller"><%= topic.lastReplyFromNow %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <% } %>
+</div>

@@ -1,0 +1,22 @@
+<div class="ui card">
+    <div class="content">
+        <div class="header">Dota 2 Matchticker</div>
+        <div class="ui divider"></div>
+        <% if(typeof matches !== 'undefined' && matches.length !== 0){ %>
+
+        <table class="ui very basic table">
+            <tbody>
+            <% for(let i = 0;i < matches.length;i++ ) { %>
+            <tr style="font-size: 12px;">
+                <td style="padding: 4px"><%= matches[i].opp1 %></td>
+                <td style="padding: 4px">VS</td>
+                <td style="padding: 4px"><%= matches[i].opp2 %></td>
+                <td style="padding: 4px"><%= matches[i].live %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+        <% } %>
+
+    </div>
+</div>
