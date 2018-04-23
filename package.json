@@ -1,0 +1,39 @@
+{
+  "name": "koa2-blog-mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tom-field/koa2-blog-mysql.git"
+  },
+  "keywords": [
+    "koa2",
+    "mysql"
+  ],
+  "author": "tom-field",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tom-field/koa2-blog-mysql/issues"
+  },
+  "homepage": "https://github.com/tom-field/koa2-blog-mysql#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "ejs": "^2.5.9",
+    "ioredis": "^3.2.2",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-cors": "0.0.16",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.8.1",
+    "koa-static": "^4.0.2",
+    "koa-views": "^6.1.4",
+    "moment": "^2.22.1",
+    "mysql": "^2.15.0"
+  }
+}

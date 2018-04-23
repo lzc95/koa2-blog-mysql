@@ -1,9 +1,9 @@
 const Koa = require('koa');
-const cors = require('koa-cors');
+// const cors = require('koa-cors');
 const json = require('koa-json');
 const views = require('koa-views');
 const serve = require('koa-static');
-const body = require('koa-bodyparser');
+const bodyParser = require('koa-bodyparser');
 const session = require('koa-session');
 const Redis = require("ioredis");
 const path = require("path");
@@ -11,6 +11,8 @@ const logger = require('koa-logger');
 
 // 引入路由
 const router = require('./routes/index');
+// cors要放在router后面才生效
+const cors = require('koa-cors');
 
 const app = new Koa();
 // 日志
@@ -44,6 +46,7 @@ const Store = {
         return redis.del(`SESSION:${sid}`);
     }
 }
+app.keys = ['i am tom-field'];
 const sessionConfig = {
     key:'tom-field',
     maxAge:86400000,
@@ -58,10 +61,7 @@ app.use(cors())
 // 传输JSON
 app.use(json())
 
-app.use(body({
-    uploadDir: path.join(__dirname, 'uploads'),
-    keepExtensions: true
-}))
+app.use(bodyParser());
 
 // 设置渲染引擎
 app.use(views(__dirname + '/views', {//这里应该是包含了ejs和别的一些，这里把扩展给限定为ejs

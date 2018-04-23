@@ -77,25 +77,28 @@ exports.getTopicsByUserId = (id)=>{
 }
 
 exports.getUserById = (id) =>{
-    let _sql = `SELECT
-                users.id,
-                users.name,
-                users.password,
-                users.email,
-                users.gender,
-                users.signature,
-                users.personalWeb,
-                users.GitHub,
-                users.avatarUrl,
-                users.integration,
-                users.createdAt,
-                users.updatedAt
+    let _sql = `SELECT *
                 FROM
                 users
                 WHERE
                 users.id = ${id}`;
     console.log(_sql);
     return query(_sql);
+}
+
+exports.getUserByName = (name) =>{
+    let _sql = `select * from users where users.name="${name}";`;
+    return query(_sql);
+}
+
+exports.getUserByEmail = (email)=>{
+    let _sql = `select * from users where users.email="${email}";`;
+    return query(_sql);
+}
+
+exports.createUser = (userInfo)=>{
+    let _sql = `insert into users set name=?,gender=?,password=?,email=?,signature=?`;
+    return query(_sql,userInfo);
 }
 
 
