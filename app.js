@@ -31,6 +31,7 @@ app.use(async(ctx, next) => {
  * 假设你的机器是4核的，你使用了4个进程在跑同一个node web服务，当用户访问进程1时，他被设置了一些数据当做session存在内存中。
  * 而下一次访问时，他被负载均衡到了进程2，则此时进程2的内存中没有他的信息，认为他是个新用户。这就会导致用户在我们服务中的状态不一致。
  */
+//todo 写入redis
 //app.keys = ['tom-field'];
 const redis = new Redis();
 const Store = {
@@ -50,7 +51,8 @@ app.keys = ['i am tom-field'];
 const sessionConfig = {
     key:'tom-field',
     maxAge:86400000,
-    store: Store,
+    overwrite: true,
+    //store: Store,
 }
 app.use(session(sessionConfig,app));
 

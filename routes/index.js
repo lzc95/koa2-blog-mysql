@@ -19,4 +19,11 @@ router.get('/login',async(ctx)=>{
 })
 router.post('/login',login.login);
 
+//登出
+router.get('/logout', async(ctx) => {
+    //删除session信息
+    ctx.session = null;
+    await ctx.redirect('/');
+})
+
 module.exports =  router;

@@ -23,13 +23,15 @@ exports.getHome = async function(ctx){
     }
 
     //根据session获取用户信息
-    console.log(ctx.session,"===================ctx session========================");
+    console.log(ctx.session.user,"===================ctx session========================");
     if(typeof ctx.session.user != 'undefined' && typeof ctx.session.user.id != 'undefined'){
-        userTopics = model.getTopicsByUserId(ctx.session.id);
+        userTopics = await model.getTopicsByUserId(ctx.session.user.id);
+        console.log(userTopics,"userTopics");
         //更新用户基本信息，有很多时候用户不需要登录直接访问主页面
-        ctx.session.user = await model.getUserById(ctx.session.id);
-
+        let userInfo = await model.getUserById(ctx.session.user.id);
+        ctx.session.user = userInfo[0];
         //todo 查询没有读取的消息数量
+
 
     }
 

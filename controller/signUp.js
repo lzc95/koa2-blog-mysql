@@ -1,4 +1,6 @@
 const model = require('../models/index');
+const crypto = require('crypto');
+
 exports.signUp = async function(ctx) {
     console.log(ctx);
     try {
@@ -24,6 +26,9 @@ exports.signUp = async function(ctx) {
             ctx.body = message;
             return;
         }
+
+        //密码加密
+        data.password = crypto.createHash('md5').update(data.password).digest('hex');
 
         let res = await model.createUser([data.name,data.gender,data.password,data.email,data.signature])
         message.result = true;

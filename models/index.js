@@ -57,22 +57,10 @@ exports.getTopicsAndCount = (pageNum,pageSize) =>{
 
 exports.getTopicsByUserId = (id)=>{
     let _sql = `SELECT
-                topics.id,
-                topics.user_id,
-                topics.title,
-                topics.content,
-                topics.pv,
-                topics.reply_count,
-                topics.allow_comment,
-                topics.is_public,
-                topics.last_reply_id,
-                topics.last_reply_date_time,
-                topics.createdAt,
-                topics.updatedAt
+                *
                 FROM
                 topics
-                where topics.user_id = ${id}
-                `
+                where topics.user_id = ${id}`
     return query(_sql);
 }
 
