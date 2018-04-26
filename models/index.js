@@ -98,5 +98,10 @@ exports.createUser = (userInfo)=>{
     return query(_sql,userInfo);
 }
 
+exports.updateTopic = (id,title,content)=>{
+    let _sql = `UPDATE topics set topics.title = "${title}",topics.content = "${content}"  WHERE topics.id = ${id}; `
+    return query(_sql,content);
+}
+
 
 

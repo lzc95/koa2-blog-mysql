@@ -3,7 +3,11 @@ const Koa = require('koa');
 const json = require('koa-json');
 const views = require('koa-views');
 const serve = require('koa-static');
-const bodyParser = require('koa-bodyparser');
+/*
+* koa-bodyparser不支持form-date类型的数据
+* */
+//const bodyParser = require('koa-bodyparser');
+const body = require('koa-better-body');
 const session = require('koa-session');
 const Redis = require("ioredis");
 const path = require("path");
@@ -63,7 +67,11 @@ app.use(cors())
 // 传输JSON
 app.use(json())
 
-app.use(bodyParser());
+// body解析
+app.use((body({
+    uploadDir: path.join(__dirname, 'uploads'),
+    keepExtensions: true
+})))
 
 // 设置渲染引擎
 app.use(views(__dirname + '/views', {//这里应该是包含了ejs和别的一些，这里把扩展给限定为ejs
@@ -82,9 +90,9 @@ app.use(async(ctx) => {
     }
 })
 
-app.listen(process.env.PORT || 4000)//这里监听端口
+app.listen(process.env.PORT || 4001)//这里监听端口
 
-console.log(`Server up and running! On port  ${process.env.PORT || 4000} !`);
+console.log(`Server up and running! On port  ${process.env.PORT || 4001} !`);
 
 
 

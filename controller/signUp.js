@@ -4,7 +4,7 @@ const crypto = require('crypto');
 exports.signUp = async function(ctx) {
     console.log(ctx);
     try {
-        var data = ctx.request.body;
+        var data = ctx.request.fileds;
         console.log(data,"requrest===========data");
         let message = {};
         message.result = false;

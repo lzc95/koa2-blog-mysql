@@ -29,5 +29,9 @@ router.get('/logout', async(ctx) => {
 
 //话题
 router.get('/topic/:id',topic.readTopic)
+//编辑主题
+router.get('/topic/:id/edit',topic.editTopic)
+//提交编辑主题
+router.post('/topic/edit',topic.saveTopic)
 
 module.exports =  router;

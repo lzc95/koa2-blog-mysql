@@ -2,7 +2,7 @@ const model = require('../models/index');
 const crypto = require('crypto');
 exports.login = async function(ctx) {
     try {
-        var data = ctx.request.body;
+        var data = ctx.request.fields;
 
         let message = {};
         message.result = false;

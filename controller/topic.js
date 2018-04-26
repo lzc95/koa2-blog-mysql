@@ -65,3 +65,33 @@ exports.readTopic = async function (ctx) {
     });
 
 }
+
+exports.editTopic = async function(ctx){
+    let topic = {};
+    if (typeof ctx.params.id !== 'undefined') {
+        result = await model.getTopicsById(ctx.params.id);
+        topic = result[0];
+    }
+    if(topic){
+        let position = 'editTopic';
+        await ctx.render('topicEdit', {
+            session: ctx.session,
+            topic: topic,
+            position: position,
+        });
+    }
+}
+
+exports.saveTopic = async function(ctx){
+    let req = ctx.request.fields;
+    let message = {};
+    console.log(req);
+    try {
+        await model.updateTopic(req.topicId, req.title, req.content);
+        message.result = true;
+        ctx.body = message;
+    }
+    catch (err) {
+        throw (err, 400);
+    }
+}
