@@ -3,6 +3,7 @@ const router = new Router();
 const home = require("../controller/home");
 const signUp = require("../controller/signUp");
 const login = require("../controller/login");
+const topic = require("../controller/topic");
 //todo 路由拆分 为了方便暂时不拆分
 //用户相关路由
 router.get('/',home.getHome);
@@ -25,5 +26,8 @@ router.get('/logout', async(ctx) => {
     ctx.session = null;
     await ctx.redirect('/');
 })
+
+//话题
+router.get('/topic/:id',topic.readTopic)
 
 module.exports =  router;

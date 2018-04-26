@@ -36,31 +36,41 @@ exports.getTopcsCount = async ()=>{
 //查询分页查询主题
 exports.getTopicsAndCount = (pageNum,pageSize) =>{
     let _sql = `SELECT
-                topics.id,
-                topics.user_id,
-                topics.title,
-                topics.content,
-                topics.pv,
-                topics.reply_count,
-                topics.allow_comment,
-                topics.is_public,
-                topics.last_reply_id,
-                topics.last_reply_date_time,
-                topics.createdAt,
-                topics.updatedAt
+                *
                 FROM
                 topics
-                LIMIT ${(pageNum-1)*pageSize}, ${pageSize}`
+                ORDER BY topics.createdAt DESC LIMIT ${(pageNum-1)*pageSize}, ${pageSize}`
     console.log(_sql);
     return query(_sql);
 }
 
-exports.getTopicsByUserId = (id)=>{
+exports.getTopicsByUserId = (id,offset,limit,orderBy,order)=>{
     let _sql = `SELECT
                 *
                 FROM
                 topics
                 where topics.user_id = ${id}`
+    if(offset&&limit){
+        _sql+=` limit ${offset},${limit}`
+    }
+    if(orderBy,order){
+        _sql+=` order by ${orderBy} ${order}`
+    }
+    return query(_sql);
+}
+
+exports.getTopicsById = (id)=>{
+    let _sql = `SELECT * FROM topics WHERE topics.id = ${id}`
+    return query(_sql);
+}
+
+exports.addPVCount = (id)=>{
+    let _sql = `UPDATE topics set topics.pv=topics.pv+1 WHERE topics.id = ${id};`
+    return query(_sql);
+}
+
+exports.getRepliesByTopicId = (id)=>{
+    let _sql = `SELECT * FROM replies WHERE replies.topic_id = ${id}`;
     return query(_sql);
 }
 
@@ -70,7 +80,6 @@ exports.getUserById = (id) =>{
                 users
                 WHERE
                 users.id = ${id}`;
-    console.log(_sql);
     return query(_sql);
 }
 
