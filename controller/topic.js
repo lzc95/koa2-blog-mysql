@@ -95,3 +95,33 @@ exports.saveTopic = async function(ctx){
         throw (err, 400);
     }
 }
+
+exports.createReply = async function(ctx){
+    let req = ctx.request.fields;
+    let message = {};
+    if(ctx.session.user.id){
+        let replyInfo = {
+            user_id: ctx.session.user.id,
+            topic_id: Number(req.topic_id),
+            content: req.content
+        };
+        console.log(replyInfo);
+        let result = await model.createReply(replyInfo);
+        console.log(result);
+
+        //todo 发送通知
+
+        //增加回复数
+        await model.addTopicReplyCount(replyInfo.topic_id);
+
+        //更新文章的最新回复时间
+        await model.updateTopicLastReplyInfo(replyInfo.topic_id,replyInfo.user_id,moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+
+        //给用户添加积分
+        await model.addIntegration(replyInfo.user_id,2);
+
+        message.result = true;
+        message.href = '/topic/' + replyInfo.topic_id + '#' + result.id;
+        ctx.body = message;
+    }
+}

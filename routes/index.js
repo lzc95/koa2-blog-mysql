@@ -33,5 +33,7 @@ router.get('/topic/:id',topic.readTopic)
 router.get('/topic/:id/edit',topic.editTopic)
 //提交编辑主题
 router.post('/topic/edit',topic.saveTopic)
+//主题添加回复
+router.post('/topic/createReply',topic.createReply)
 
 module.exports =  router;

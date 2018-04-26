@@ -7,6 +7,7 @@ const pool = mysql.createPool({
     password:config.password,
     database:config.databaseName,
     port:config.port,
+    debug:true,
 });
 
 const query = (sql,values)=>{
@@ -101,6 +102,31 @@ exports.createUser = (userInfo)=>{
 exports.updateTopic = (id,title,content)=>{
     let _sql = `UPDATE topics set topics.title = "${title}",topics.content = "${content}"  WHERE topics.id = ${id}; `
     return query(_sql,content);
+}
+
+//创建回复
+exports.createReply = (params)=>{
+    let _sql = `INSERT INTO replies (replies.user_id,replies.topic_id,replies.content) VALUES(${params.user_id},${params.topic_id},"${params.content}");`
+    console.log(_sql);
+    return query(_sql);
+}
+
+//主题添加回复数
+exports.addTopicReplyCount = (id)=>{
+    let _sql = `update topics set topics.reply_count=topics.reply_count+1 where topics.id=${id}`
+    return query(_sql);
+}
+
+//更新主题最新回复时间和用户
+exports.updateTopicLastReplyInfo = (id,userId,time)=>{
+    let _sql = `update topics set topics.last_reply_id=${userId},topics.last_reply_date_time="${time}" where topics.id=${id}`
+    return query(_sql);
+}
+
+//给用户添加积分
+exports.addIntegration = (userId,integration)=>{
+    let _sql = `update users set users.integration=users.integration+${integration} where users.id=${userId}`;
+    return query(_sql);
 }
 
 
